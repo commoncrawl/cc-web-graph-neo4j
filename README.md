@@ -47,7 +47,8 @@ PW=asdfasdf CONAME=web-graph-neo4j bash create.sh
 docker stop web-graph-neo4j
 ```
 
-Buglet: logs/ ends up owned by user:group 7474:7474
+> [!IMPORTANT]
+> Buglet: `logs/`, `data/neo4j_db` end up owned by user:group 7474:7474
 
 At this point you have a container that you can stop and start and run commands in. For
  example,
@@ -87,17 +88,38 @@ s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-jun-jul-aug-domain-g
 
 ### Load
 
+> [!IMPORTANT]
+> Load and dump operations should always be performed with Neo4J in offline mode, or stopped. 
+
 This step turns the dump files into a neo4j database. Note that the database will be about 2.5X the size of the dump.
 
-XXX Luca, nothing below this is tested
-
+Move the dumps in the import directory 
+```shell
+mv cc-main-2025-jun-jul-aug-domain-system.dump data/import/system.dump
+mv cc-main-2025-jun-jul-aug-domain-graph.dump data/import/neo4j.dump
 ```
-mv cc-main-2025-jun-jul-aug-domain-system.dump data/import
-mv cc-main-2025-jun-jul-aug-domain-graph.dump data/import
+
+Load the system and neo4j databases: 
+```shell
+docker run --rm \
+  -v $(pwd)/data/neo4j_db:/data \
+  -v $(pwd)/data/import:/import \
+  -v $(pwd)/data/export:/export \
+  neo4j:latest \
+  bin/neo4j-admin database load --expand-commands system \
+  --from-path=/import \
+  --overwrite-destination=false
+
+docker run --rm \
+  -v $(pwd)/data/neo4j_db:/data \
+  -v $(pwd)/data/import:/import \
+  -v $(pwd)/data/export:/export \
+  neo4j:latest \
+  bin/neo4j-admin database load --expand-commands neo4j \
+  --from-path=/import \
+  --overwrite-destination=false
+
 docker start web-graph-neo4j
-docker exec web-graph-neo4j neo4j-admin database load --expand-commands system --from-path=/import
-docker exec web-graph-neo4j neo4j-admin database load --expand-commands neo4j --from-path=/import
-docker stop web-graph-neo4j
 ```
 
 At this point, you should see the unpacked database in `data/neo4j_db`. If you like, you can now remove the 2 dump files in import/
