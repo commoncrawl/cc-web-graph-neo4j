@@ -37,7 +37,7 @@ storage -- 512GB to 1TB.
 
 ## Docker container
 
-These instructions run neo4j inside of a docker container. These instructions create
+These instructions run neo4j inside a docker container. These instructions create
 a single container whose configuration can be used for all operations described in
 this README.
 
@@ -50,7 +50,7 @@ docker stop web-graph-neo4j
 Buglet: logs/ ends up owned by user:group 7474:7474
 
 At this point you have a container that you can stop and start and run commands in. For
-example,
+ example,
 
 ```
 docker start web-graph-neo4j
@@ -97,7 +97,7 @@ mv cc-main-2025-jun-jul-aug-domain-graph.dump data/import
 docker start web-graph-neo4j
 docker exec web-graph-neo4j neo4j-admin database load --expand-commands system --from-path=/import
 docker exec web-graph-neo4j neo4j-admin database load --expand-commands neo4j --from-path=/import
-docker stopweb-graph-neo4j
+docker stop web-graph-neo4j
 ```
 
 At this point, you should see the unpacked database in `data/neo4j_db`. If you like, you can now remove the 2 dump files in import/
@@ -149,12 +149,12 @@ Please refer to the section `How to Use an Existing neo4j Graph`.
 
 Example Node details of `host-level` or `domain-level` webgraph (Note: `num_hosts` is only provided in `domain-level`):
 
-| Key        | Value                                                                 |
-|------------|----------------------------------------------------------------------|
-| `<id>`     | 4:5b402213-36e2-4fd4-af16-2f4de077133b:50869977                       |
-| num_hosts  | 2365                                                                 |
-| host_parts | ["com", "microsoft"]                                                 |
-| id         | "105638887"                                                          |
+| Key          | Value                                                                 |
+|--------------|-----------------------------------------------------------------------|
+| `<id>`       | 4:5b402213-36e2-4fd4-af16-2f4de077133b:50869977                       |
+| num_hosts    | 2365                                                                  |
+| host_parts   | ["com", "microsoft"]                                                  |
+| id           | "105638887"                                                           |
 
 
 
