@@ -69,6 +69,8 @@ are:
 
 ## Download and use an existing neo4j web graph
 
+TBD: Update this part!
+
 Our pre-made neo4j format web graphs are stored as neo4j dump files. To use them,
 you'll have to download the dumps, and then load them.
 
@@ -125,6 +127,8 @@ docker start web-graph-neo4j
 At this point, you should see the unpacked database in `data/neo4j_db`. If you like, you can now remove the 2 dump files in import/
 
 ### Use
+
+TBD: revise from here 
 
 blah blah start container, "exec" to start up neo4j, access it with a browser at https://localhost:7474/
 
