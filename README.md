@@ -69,59 +69,39 @@ are:
 
 ## Download and use an existing neo4j web graph
 
-TBD: Update this part!
-
 Our pre-made neo4j format web graphs are stored as neo4j dump files. To use them,
 you'll have to download the dumps, and then load them.
 
 ### Download
 
 ```
-wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-jun-jul-aug-domain-system.dump
-wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-jun-jul-aug-domain-graph.dump
+wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-system.dump
+wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-neo4j.dump
 ```
 
 or from inside AWS:
 
 ```
-s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-jun-jul-aug-domain-system.dump
-s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-jun-jul-aug-domain-graph.dump
+s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-system.dump
+s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-neo4j.dump
 ```
 
 ### Load
-
-> [!IMPORTANT]
-> Load and dump operations should always be performed with Neo4J in offline mode, or stopped. 
 
 This step turns the dump files into a neo4j database. Note that the database will be about 2.5X the size of the dump.
 
 Move the dumps in the import directory 
 ```shell
-mv cc-main-2025-jun-jul-aug-domain-system.dump data/import/system.dump
-mv cc-main-2025-jun-jul-aug-domain-graph.dump data/import/neo4j.dump
+mv cc-main-2025-oct-nov-dec-domain-system.dump data/import/system.dump
+mv cc-main-2025-oct-nov-dec-domain-neo4j.dump data/import/neo4j.dump
 ```
 
-Load the system and neo4j databases: 
+Load the system and neo4j databases:
 ```shell
-docker run --rm \
-  -v $(pwd)/data/neo4j_db:/data \
-  -v $(pwd)/data/import:/import \
-  -v $(pwd)/data/export:/export \
-  neo4j:latest \
-  bin/neo4j-admin database load --expand-commands system \
-  --from-path=/import \
-  --overwrite-destination=false
-
-docker run --rm \
-  -v $(pwd)/data/neo4j_db:/data \
-  -v $(pwd)/data/import:/import \
-  -v $(pwd)/data/export:/export \
-  neo4j:latest \
-  bin/neo4j-admin database load --expand-commands neo4j \
-  --from-path=/import \
-  --overwrite-destination=false
-
 docker start web-graph-neo4j
+docker exec web-graph-neo4j neo4j-admin database load --expand-commands system --from-path=/import --overwrite-destination=true
+docker exec web-graph-neo4j neo4j-admin database load --expand-commands neo4j --from-path=/import  --overwrite-destination=true
+docker stop web-graph-neo4j
 ```
 
 At this point, you should see the unpacked database in `data/neo4j_db`. If you like, you can now remove the 2 dump files in import/
