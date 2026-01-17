@@ -37,9 +37,8 @@ storage -- 512GB to 1TB.
 
 ## Docker container
 
-These instructions run neo4j inside a docker container. These instructions create
-a single container whose configuration can be used for all operations described in
-this README.
+These instructions set up a Neo4j image inside a docker container. 
+The container is configured to accept exec operations as described in this README.
 
 ```
 mkdir -p data/neo4j_db data/import data/export logs plugins
@@ -50,8 +49,8 @@ docker stop web-graph-neo4j
 > [!IMPORTANT]
 > Buglet: `logs/`, `data/neo4j_db` end up owned by user:group 7474:7474
 
-At this point you have a container that you can stop and start and run commands in. For
- example,
+At this point you have a container (with Neo4J not running yet) that you can stop and start and run commands in. 
+For example,
 
 ```
 docker start web-graph-neo4j
@@ -59,9 +58,7 @@ docker exec web-graph-neo4j ls /data
 docker stop web-graph-neo4j
 ```
 
-Also, note that there are 3 special directories on the local disk, one for the neo4j database,
-one for incoming files, and one for files created by running commands in the container. These
-are:
+Also, note that there are 3 special directories on the local disk, one for the neo4j database, one for incoming files, and one for files created by running commands in the container. These are:
 
 - data/neo4j_db
 - data/import
@@ -69,8 +66,8 @@ are:
 
 ## Download and use an existing neo4j web graph
 
-Our pre-made neo4j format web graphs are stored as neo4j dump files. To use them,
-you'll have to download the dumps, and then load them.
+Our pre-made neo4j format web graphs are stored as neo4j dump files. 
+To use them, you'll have to download the dumps, and then load them.
 
 ### Download
 
@@ -96,6 +93,10 @@ mv cc-main-2025-oct-nov-dec-domain-system.dump data/import/system.dump
 mv cc-main-2025-oct-nov-dec-domain-neo4j.dump data/import/neo4j.dump
 ```
 
+> [!IMPORTANT]
+> Load and dump operations should always be performed with Neo4J in offline mode, or stopped.
+> You can check using `docker exec web-graph-neo4j neo4j status`
+
 Load the system and neo4j databases:
 ```shell
 docker start web-graph-neo4j
@@ -108,9 +109,13 @@ At this point, you should see the unpacked database in `data/neo4j_db`. If you l
 
 ### Use
 
-TBD: revise from here 
+The container is configured to sleep infinitely, after starting, you can "exec" to start up neo4j:
 
-blah blah start container, "exec" to start up neo4j, access it with a browser at https://localhost:7474/
+```shell
+docker exec web-graph-neo4j neo4j start
+```
+
+After, you can access it with a browser at https://localhost:7474/
 
 If you want to run scripts against neo4j, write the output into /export
 
