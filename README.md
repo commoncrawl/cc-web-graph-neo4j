@@ -48,6 +48,11 @@ docker stop web-graph-neo4j
 
 > [!IMPORTANT]
 > Buglet: `logs/`, `data/neo4j_db` end up owned by user:group 7474:7474
+> The proper way to fix this is to create a user with that uid/gid on the host and chown the directories to that user.
+> `sudo groupadd -g 7474 neo4j`
+> `sudo useradd -u 7474 -g 7474 neo4j;` 
+> `sudo chown -R neo4j:neo4j data logs`
+> You could also add your own user to group neo4j for simplified access.
 
 At this point you have a container (with Neo4J not running yet) that you can stop and start and run commands in. 
 For example,
