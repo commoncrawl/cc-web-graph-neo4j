@@ -7,5 +7,5 @@ docker run -d \
  -v "$(pwd)/logs":/logs \
  -v "$(pwd)/plugins":/plugins \
  -e NEO4J_AUTH="neo4j/$PW" \
- neo4j:latest
+ neo4j:latest \
  sleep infinity
