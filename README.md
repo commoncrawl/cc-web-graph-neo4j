@@ -1,8 +1,7 @@
 # cc-web-graph-neo4j
 
 This repo contains documentation and code related to the Common Crawl
-Foundation's
-[web graphs](https://commoncrawl.org/web-graphs),
+Foundation's [Web Graphs](https://commoncrawl.org/web-graphs),
 stored in a [Neo4j graph database](https://neo4j.com/).
 We have been
 computing these web graphs since 2018, and currently every crawl has
@@ -12,7 +11,7 @@ These graphs are computed by the
 [WebGraph Framework](https://webgraph.di.unimi.it/). Historically
 CCF only distributed these graphs in a not-commonly-used format.
 This repo contains both instructions for using the graphs
-in neo4j form, and also code to convert from WebGraph Framework
+in neo4j form, and also code to convert from Web Graph Framework
 format to neo4j.
 
 ## Status
@@ -139,15 +138,15 @@ The web dashboard looks like:
 
 ## How to Use the Conversion Tools
 
-- Step 1: (Prepare Webgraph)
+- Step 1: (Prepare Web Graph)
 
-For a host-level webgraph, place the two path lists (`cc-main-…-host-vertices.paths.gz` and `cc-main-…-host-edges.paths.gz`) in `data/` folder.
-For a domain-level webgraph, place the two compressed text files (`cc-main-…-vertices-edges.txt.gz` and `cc-main-…-domain-edges.txt.gz`) in `data/` folder.
+**Host-level Web Graph**: place the two path lists (`cc-main-…-host-vertices.paths.gz` and `cc-main-…-host-edges.paths.gz`) in `data/` folder.
+**Domain-level Web Graph**: place the two compressed text files (`cc-main-…-vertices-edges.txt.gz` and `cc-main-…-domain-edges.txt.gz`) in `data/` folder.
 They can be accessed from [Common Crawl Web Graphs](https://commoncrawl.org/web-graphs).
 
 - Step 2: (Setting and Environment)
 
-Set up the environment (e.g., using bash `setup.sh` provided). Then go to settings.py and make any edits you need. Otherwise, only change variable `RELEASE` and `GRAPH_KIND` to match your current webgraph and leave all other variables as default.
+Set up the environment (e.g., using bash `setup.sh` provided). Then go to settings.py and make any edits you need. Otherwise, only change variable `RELEASE` and `GRAPH_KIND` to match your current Web Graph and leave all other variables as default.
 
 - Step 3: (CSV Conversion)
 
@@ -166,7 +165,7 @@ Please refer to the section `How to Use an Existing neo4j Graph`.
 
 ## Type of Nodes
 
-Example Node details of `host-level` or `domain-level` webgraph (Note: `num_hosts` is only provided in `domain-level`):
+Example Node details of `host-level` or `domain-level` Web Graph (Note: `num_hosts` is only provided in `domain-level`):
 
 | Key          | Value                                                                 |
 |--------------|-----------------------------------------------------------------------|
@@ -185,8 +184,8 @@ Our data originates from The [Web Graph](https://commoncrawl.org/web-graphs), an
 
 We'd love to get testing and code contributions! Here are some clues:
 
-- We'd love to know if the flow runs end-to-end on your machine? Please note OS, RAM, disk, and the WebGraph release you used.
-- Notice the webgraphs are large, would it be more convenient if we provide an option that the converter will automatically delete template dataset to save more space? For example, delete TXT after CSV is done and delete CSV when Neo4j is done.
+- We'd love to know if the flow runs end-to-end on your machine? Please note OS, RAM, disk, and the Web Graph release you used.
+- Notice the Web Graphs are large, would it be more convenient if we provide an option that the converter will automatically delete template dataset to save more space? For example, delete TXT after CSV is done and delete CSV when Neo4j is done.
 - We'd love to know how long each step took, and what was peak disk usage (TXT, CSV, Neo4j DB sizes)?
 - Please share with us, if you tried both host and domain modes, did both work? What small examples or tweaks would help you next (e.g., a couple of sample Cypher queries)?
 
