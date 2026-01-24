@@ -119,6 +119,7 @@ At this point, you should see the unpacked database in `data/neo4j_db`. If you l
 The container is configured to sleep infinitely, after starting, you can "exec" to start up neo4j:
 
 ```shell
+docker start web-graph-neo4j
 docker exec web-graph-neo4j neo4j start
 ```
 
