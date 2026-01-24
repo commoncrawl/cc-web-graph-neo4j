@@ -132,37 +132,6 @@ The web dashboard looks like:
   <img src="images/dashboard_eg.jpg" alt="You might see a dashboard enabled to play with" width="800"/>
 </p>
 
-## Making your own dump
-
-... end edit
-
-
-## How to Use the Conversion Tools
-
-- Step 1: (Prepare Web Graph)
-
-**Host-level Web Graph**: place the two path lists (`cc-main-…-host-vertices.paths.gz` and `cc-main-…-host-edges.paths.gz`) in `data/` folder.
-**Domain-level Web Graph**: place the two compressed text files (`cc-main-…-vertices-edges.txt.gz` and `cc-main-…-domain-edges.txt.gz`) in `data/` folder.
-They can be accessed from [Common Crawl Web Graphs](https://commoncrawl.org/web-graphs).
-
-- Step 2: (Setting and Environment)
-
-Set up the environment (e.g., using bash `setup.sh` provided). Then go to settings.py and make any edits you need. Otherwise, only change variable `RELEASE` and `GRAPH_KIND` to match your current Web Graph and leave all other variables as default.
-
-- Step 3: (CSV Conversion)
-
-Run `pull.py` to download the original web graph in txt format, then run `neo4j_Convertor.py` to convert it into the correct csv format. All the results are stored under the `data/` folder.
-
-- Step 4: (Neo4j Conversion)
-
-The converter writes `generated_docker_import.sh`, calls Neo4j’s offline importer with the correct delimiters, and prints a docker run command that starts Neo4j on ports `7474/7687` with `NEO4J_AUTH=neo4j/test`.
-
-- Step 5: (Local Web Graph Preview)
-
-Please refer to the section `How to Use an Existing neo4j Graph`.
-
-
-
 
 ## Type of Nodes
 
@@ -179,7 +148,7 @@ Example Node details of `host-level` or `domain-level` Web Graph (Note: `num_hos
 
 ## Credits
 
-Our data originates from The [Web Graph](https://commoncrawl.org/web-graphs), and the insights align with [Web Graph Statistics](https://commoncrawl.github.io/cc-webgraph-statistics/); the project presents results on [Neo4j](https://github.com/neo4j/neo4j), with data conversion handled by [pyspark](https://github.com/commoncrawl/cc-pyspark).
+Our data originates from The [Web Graph](https://commoncrawl.org/web-graphs), and the insights align with [Web Graph Statistics](https://commoncrawl.github.io/cc-webgraph-statistics/); the project presents results on [Neo4j](https://github.com/neo4j/neo4j).
 
 ## Contributing
 
