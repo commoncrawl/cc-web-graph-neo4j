@@ -19,7 +19,7 @@ format to neo4j.
 This project is in beta-testing. Please give it a try with the one
 domain graph we've converted, and tell us how it went!
 
-Eventually we will provide all of our web graphs in neo4j format.
+Eventually we will provide all of our web graphs in neo4j format. 
 
 ## Motivation
 
@@ -152,10 +152,9 @@ Our data originates from The [Web Graph](https://commoncrawl.org/web-graphs), an
 
 ## Contributing
 
-We'd love to get testing and code contributions! Here are some clues:
+We'd love to hear from you. 
+Feedback and code contributions are mostly welcome! 
 
-- We'd love to know if the flow runs end-to-end on your machine? Please note OS, RAM, disk, and the Web Graph release you used.
-- Notice the Web Graphs are large, would it be more convenient if we provide an option that the converter will automatically delete template dataset to save more space? For example, delete TXT after CSV is done and delete CSV when Neo4j is done.
-- We'd love to know how long each step took, and what was peak disk usage (TXT, CSV, Neo4j DB sizes)?
-- Please share with us, if you tried both host and domain modes, did both work? What small examples or tweaks would help you next (e.g., a couple of sample Cypher queries)?
+For example, let us know whether the instructions ran end-to-end on your machine, don't forget to note OS, RAM, disk, and the Web Graph release you used.
+Should you have ideas of analysis or queries you would like ot run on the Web Graph, please them our way as well and we will be deligthed to help you. 
 
