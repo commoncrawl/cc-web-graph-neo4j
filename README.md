@@ -53,7 +53,7 @@ that user.
 
 ```shell
 sudo groupadd -g 7474 neo4j
-sudo useradd -u 7474 -g 7474 neo4j; 
+sudo useradd -u 7474 -g 7474 neo4j;
 sudo chown -R neo4j:neo4j data logs
 ```
 
@@ -164,5 +164,5 @@ Feedback and code contributions are mostly welcome!
 For example, let us know whether the instructions ran end-to-end on your machine, don't forget to note OS, RAM, disk,
 and the Web Graph release you used.
 Should you have ideas of analysis or queries you would like ot run on the Web Graph, please them our way as well and we
-will be delighted to help you. 
+will be delighted to help you.
 
