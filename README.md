@@ -7,8 +7,7 @@ We have been
 computing these web graphs since 2018, and currently every crawl has
 a web graph covering the previous 3 crawls.
 
-These graphs are computed by the
-[WebGraph Framework](https://webgraph.di.unimi.it/). Historically
+These graphs are computed by the [WebGraph Framework](https://webgraph.di.unimi.it/). Historically
 CCF only distributed these graphs in a not-commonly-used format.
 This repo contains both instructions for using the graphs
 in neo4j form, and also code to convert from Web Graph Framework
@@ -36,7 +35,7 @@ storage -- 512GB to 1TB.
 
 ## Docker container
 
-These instructions set up a Neo4j image inside a docker container. 
+These instructions set up a Neo4j image inside a docker container.
 The container is configured to accept exec operations as described in this README.
 
 ```
@@ -51,12 +50,12 @@ docker stop web-graph-neo4j
 The proper way to fix the permissions is to create a user with that uid/gid on the host and chown the directories to that user.
 ```shell
 sudo groupadd -g 7474 neo4j
-sudo useradd -u 7474 -g 7474 neo4j; 
+sudo useradd -u 7474 -g 7474 neo4j;
 sudo chown -R neo4j:neo4j data logs
 ```
 You could also add your own user to group neo4j for simplified access.
 
-At this point you have a container (with Neo4J not running yet) that you can stop and start and run commands in. 
+At this point you have a container (with Neo4J not running yet) that you can stop and start and run commands in.
 For example,
 
 ```
@@ -73,7 +72,7 @@ Also, note that there are 3 special directories on the local disk, one for the n
 
 ## Download and use an existing neo4j web graph
 
-Our pre-made neo4j format web graphs are stored as neo4j dump files. 
+Our pre-made neo4j format web graphs are stored as neo4j dump files.
 To use them, you'll have to download the dumps, and then load them.
 
 ### Download
@@ -94,7 +93,7 @@ s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-n
 
 This step turns the dump files into a neo4j database. Note that the database will be about 2.5X the size of the dump.
 
-Move the dumps in the import directory 
+Move the dumps in the import directory
 ```shell
 mv cc-main-2025-oct-nov-dec-domain-system.dump data/import/system.dump
 mv cc-main-2025-oct-nov-dec-domain-neo4j.dump data/import/neo4j.dump
