@@ -144,7 +144,7 @@ The web dashboard looks like:
 Example Node details of `host-level` or `domain-level` Web Graph (Note: `num_hosts` is only provided in `domain-level`):
 
 | Key        | Value                                           |
-|------------|-------------------------------------------------|
+|--------------|--------------------------------------------------|
 | `<id>`     | 4:5b402213-36e2-4fd4-af16-2f4de077133b:50869977 |
 | num_hosts  | 2365                                            |
 | host_parts | ["com", "microsoft"]                            |
