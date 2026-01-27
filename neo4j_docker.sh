@@ -5,11 +5,11 @@ docker run --rm \
   -v "$(pwd)/data/neo4j_csv":/import \
   -v "$(pwd)/data/neo4j_db":/data \
   neo4j:latest \
-  neo4j-admin database import full graph.db \
+  neo4j-admin database import full \
   --delimiter="," \
   --array-delimiter=";" \
   --id-type=string \
-  --overwrite-destination=true \
+  --overwrite-destination=false \
   --nodes=/import/vertices/vertices_test.csv \
   --relationships=/import/edges/edges_test.csv
 
