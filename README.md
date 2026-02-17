@@ -12,10 +12,15 @@ Framework format to neo4j.
 
 ## Status
 
-This project is in beta-testing. Please give it a try with the one
-domain graph we've converted, and tell us how it went!
+This project is in beta-testing. Please give it a try with the one Web Graph we've converted: we provide both the domain and host version.
 
-Eventually we will provide all of our web graphs in Neo4j format.
+The host Web Graph contains each hostname as a separate node, and links between them as edges.
+The domain Web Graph is built by aggregating the host graph at the pay-level domain (PLD) level based on the public suffix
+list maintained on publicsuffix.org.
+
+> [!TIP]
+> We are collecting feedback on the instructions and the code, and will be making improvements based on your needs and suggestions.
+> Eventually we will provide all of our web graphs in Neo4j format.
 
 ## Motivation
 
@@ -30,8 +35,7 @@ These papers give good examples of what web graphs are useful for:
 
 ## Hardware Requirements
 
-We recommend 2–4 CPU cores or more, 16–32 GB of memory, and ample
-storage -- 512GB to 1TB.
+We recommend 2–4 CPU cores or more, 16–32 GB of memory, and ample storage -- 512GB to 1TB.
 
 ## Docker container
 
@@ -81,6 +85,8 @@ To use them, you'll have to download the dumps, and then load them.
 
 ### Download
 
+#### Domain Web Graph
+
 ```
 wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-system.dump
 wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-neo4j.dump
@@ -93,11 +99,25 @@ s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-s
 s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-neo4j.dump
 ```
 
+#### Host Web Graph
+
+```
+wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-system.dump
+wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-neo4j.dump
+```
+
+or from inside AWS:
+
+```
+s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-system.dump
+s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-neo4j.dump
+```
+
 ### Load
 
 This step turns the dump files into a Neo4j database. Note that the database will be about 2.5X the size of the dump.
 
-Move the dumps in the import directory
+Move the dumps in the import directory:
 
 ```shell
 mv cc-main-2025-oct-nov-dec-domain-system.dump data/import/system.dump
