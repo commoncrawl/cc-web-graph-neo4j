@@ -1,7 +1,7 @@
 # cc-web-graph-neo4j
 
 This repo contains documentation and code related to the Common Crawl Foundation's [Web Graphs](https://commoncrawl.org/web-graphs),
-stored in a [Neo4j graph database](https://neo4j.com/).
+stored in a [neo4j graph database](https://neo4j.com/).
 We have been computing these web graphs since 2018, and currently every crawl has
 a web graph covering the previous 3 crawls.
 
@@ -20,7 +20,7 @@ list maintained on publicsuffix.org.
 
 > [!TIP]
 > We are collecting feedback on the instructions and the code, and will be making improvements based on your needs and suggestions.
-> Eventually we will provide all of our web graphs in Neo4j format.
+> Eventually we will provide all of our web graphs in neo4j format.
 
 ## Motivation
 
@@ -39,7 +39,7 @@ We recommend 2–4 CPU cores or more, 16–32 GB of memory, and ample storage --
 
 ## Docker container
 
-These instructions set up a Neo4j image inside a docker container.
+These instructions set up a neo4j image inside a docker container.
 The container is configured to accept exec operations as described in this README.
 
 ```
@@ -60,7 +60,7 @@ sudo useradd -u 7474 -g 7474 neo4j;
 sudo chown -R neo4j:neo4j data logs
 ```
 
-You could also add your own user to group Neo4j for simplified access.
+You could also add your own user to group neo4j for simplified access.
 
 At this point you have a container (with Neo4J not running yet) that you can stop and start and run commands in.
 For example,
@@ -71,14 +71,14 @@ docker exec web-graph-neo4j ls /data
 docker stop web-graph-neo4j
 ```
 
-Also, note that there are 3 special directories on the local disk, one for the Neo4j database, one for incoming files,
+Also, note that there are 3 special directories on the local disk, one for the neo4j database, one for incoming files,
 and one for files created by running commands in the container. These are:
 
 - data/neo4j_db
 - data/import
 - data/export
 
-## Download and use an existing Neo4j web graph
+## Download and use an existing neo4j web graph
 
 Our pre-made Neo4j format web graphs are stored as Neo4j dump files.
 To use them, you'll have to download the dumps, and then load them.
@@ -115,7 +115,7 @@ s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-neo
 
 ### Load
 
-This step turns the dump files into a Neo4j database. Note that the database will be about 2.5X the size of the dump.
+This step turns the dump files into a neo4j database. Note that the database will be about 2.5X the size of the dump.
 
 Move the dumps in the import directory:
 
@@ -128,7 +128,7 @@ mv cc-main-2025-oct-nov-dec-domain-neo4j.dump data/import/neo4j.dump
 > Load and dump operations should always be performed with Neo4J in offline mode, or stopped.
 > You can check using `docker exec web-graph-neo4j neo4j status`
 
-Load the system and Neo4j databases:
+Load the system and neo4j databases:
 
 ```shell
 docker start web-graph-neo4j
@@ -142,7 +142,7 @@ in import/
 
 ### Use
 
-The container is configured to sleep infinitely, after starting, you can "exec" to start up Neo4j:
+The container is configured to sleep infinitely, after starting, you can "exec" to start up neo4j:
 
 ```shell
 docker start web-graph-neo4j
@@ -151,7 +151,7 @@ docker exec web-graph-neo4j neo4j start
 
 After, you can access it with a browser at https://localhost:7474/
 
-If you want to run scripts against Neo4j, write the output into /export
+If you want to run scripts against neo4j, write the output into /export
 
 The web dashboard looks like:
 <p align="center">
@@ -173,7 +173,7 @@ Example Node details of `host-level` or `domain-level` Web Graph (Note: `num_hos
 
 Our data originates from The [Web Graph](https://commoncrawl.org/web-graphs), and the insights align
 with [Web Graph Statistics](https://commoncrawl.github.io/cc-webgraph-statistics/); the project presents results
-on [Neo4j](https://github.com/neo4j/neo4j).
+on [neo4j](https://github.com/neo4j/neo4j).
 
 ## Contributing
 
