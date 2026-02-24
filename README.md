@@ -80,8 +80,17 @@ and one for files created by running commands in the container. These are:
 
 ## Download and use an existing neo4j web graph
 
-Our pre-made Neo4j format web graphs are stored as Neo4j dump files.
-To use them, you'll have to download the dumps, and then load them.
+Our pre-made neo4j format web graphs are stored as neo4j dump files.
+To use them, you have to download the dumps and then load them.
+
+> [!Tip] Consider allocating around 500Gb-700Gb at max, for the whole process (the dump can be removed after loading it).
+
+The dump for the domain Web Graph is ~100Gb and for the host Web Graph is 180Gb.
+However, the loaded database is about 2.5-3 times the dump size, and this may increase when creating more indexes.
+
+> [!IMPORTANT]
+> neo4j community edition supports only one database per instance, so we
+> strongly recommend to pick one dump to load and work with.
 
 ### Download
 
