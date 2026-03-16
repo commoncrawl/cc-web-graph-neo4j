@@ -1,22 +1,26 @@
 # cc-web-graph-neo4j
 
-This repo contains documentation and code related to the Common Crawl
-Foundation's [Web Graphs](https://commoncrawl.org/web-graphs),
-stored in a [Neo4j graph database](https://neo4j.com/).
+This repo contains documentation and code related to the Common Crawl Foundation's [Web Graphs](https://commoncrawl.org/web-graphs),
+stored in a [neo4j graph database](https://neo4j.com/).
 We have been computing these web graphs since 2018, and currently every crawl has
 a web graph covering the previous 3 crawls.
 
-These graphs are computed by the [WebGraph Framework](https://webgraph.di.unimi.it/). Historically
-CCF only distributed these graphs in a not-commonly-used format.
+These graphs are computed by the [WebGraph Framework](https://webgraph.di.unimi.it/). Historically CCF only distributed these graphs in a
+not-commonly-used format.
 This repo contains both instructions for using the graphs in neo4j form, and also code to convert from Web Graph
 Framework format to neo4j.
 
 ## Status
 
-This project is in beta-testing. Please give it a try with the one
-domain graph we've converted, and tell us how it went!
+This project is in beta-testing. Please give it a try with the one Web Graph we've converted: we provide both the domain and host version.
 
-Eventually we will provide all of our web graphs in neo4j format.
+The host Web Graph contains each hostname as a separate node, and links between them as edges.
+The domain Web Graph is built by aggregating the host graph at the pay-level domain (PLD) level based on the public suffix
+list maintained on publicsuffix.org.
+
+> [!TIP]
+> We are collecting feedback on the instructions and the code, and will be making improvements based on your needs and suggestions.
+> Eventually we will provide all of our web graphs in neo4j format.
 
 ## Motivation
 
@@ -31,12 +35,11 @@ These papers give good examples of what web graphs are useful for:
 
 ## Hardware Requirements
 
-We recommend 2–4 CPU cores or more, 16–32 GB of memory, and ample
-storage -- 512GB to 1TB.
+We recommend 2–4 CPU cores or more, 16–32 GB of memory, and ample storage -- 512GB to 1TB.
 
 ## Docker container
 
-These instructions set up a Neo4j image inside a docker container.
+These instructions set up a neo4j image inside a docker container.
 The container is configured to accept exec operations as described in this README.
 
 ```
@@ -78,9 +81,21 @@ and one for files created by running commands in the container. These are:
 ## Download and use an existing neo4j web graph
 
 Our pre-made neo4j format web graphs are stored as neo4j dump files.
-To use them, you'll have to download the dumps, and then load them.
+To use them, you have to download the dumps and then load them.
+
+> [!TIP]
+> Consider allocating around 500Gb-700Gb at max, for the whole process (the dump can be removed after loading it).
+
+The dump for the domain Web Graph is ~100Gb and for the host Web Graph is 180Gb.
+However, the loaded database is about 2.5-3 times the dump size, and this may increase when creating more indexes.
+
+> [!IMPORTANT]
+> neo4j community edition supports only one database per instance, so we
+> strongly recommend to pick one dump to load and work with.
 
 ### Download
+
+#### Domain Web Graph
 
 ```
 wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-system.dump
@@ -94,11 +109,25 @@ s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-s
 s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-domain-neo4j.dump
 ```
 
+#### Host Web Graph
+
+```
+wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-system.dump
+wget https://data.commoncrawl.org/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-neo4j.dump
+```
+
+or from inside AWS:
+
+```
+s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-system.dump
+s3://commoncrawl/projects/web-graph-testing/v1/cc-main-2025-oct-nov-dec-host-neo4j.dump
+```
+
 ### Load
 
 This step turns the dump files into a neo4j database. Note that the database will be about 2.5X the size of the dump.
 
-Move the dumps in the import directory
+Move the dumps in the import directory:
 
 ```shell
 mv cc-main-2025-oct-nov-dec-domain-system.dump data/import/system.dump
@@ -154,7 +183,7 @@ Example Node details of `host-level` or `domain-level` Web Graph (Note: `num_hos
 
 Our data originates from The [Web Graph](https://commoncrawl.org/web-graphs), and the insights align
 with [Web Graph Statistics](https://commoncrawl.github.io/cc-webgraph-statistics/); the project presents results
-on [Neo4j](https://github.com/neo4j/neo4j).
+on [neo4j](https://github.com/neo4j/neo4j).
 
 ## Contributing
 
